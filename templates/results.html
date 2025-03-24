@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .company-header {
+            text-align: center;
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Jurisdiction</th>
+                <th>Company Number</th>
+                <th>Incorporation Date</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in companies %}
+                <tr>
+                    <td class="company-header" colspan="5">{{ company }}</td>
+                </tr>
+                {% for result in results %}
+                    {% if result['Company Name'].strip() == company.strip() %}
+                        <tr>
+                            <td>{{ result['Company Name'] }}</td>
+                            <td>{{ result['Jurisdiction'] }}</td>
+                            <td>{{ result['Company Number'] }}</td>
+                            <td>{{ result['Incorporation Date'] }}</td>
+                            <td>{{ result['Address'] }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}">Search Again</a>
+</body>
+</html>
